@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartas Para Ti ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3,#fad0c4);
+    overflow:hidden;
+    color:white;
+    text-align:center;
+    height:100vh;
+}
+
+.contenido{
+    position:relative;
+    top:50%;
+    transform:translateY(-50%);
+    padding:20px;
+}
+
+h1{
+    font-size:55px;
+    animation:latido 1.5s infinite;
+    text-shadow:0 0 15px rgba(0,0,0,0.3);
+}
+
+@keyframes latido{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+p{
+    font-size:22px;
+    margin-top:20px;
+}
+
+button{
+    margin-top:25px;
+    padding:15px 35px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff4d6d;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:#ff4d6d;
+    color:white;
+}
+
+.carta{
+    display:none;
+    margin:25px auto;
+    width:85%;
+    max-width:550px;
+    background:rgba(255,255,255,0.2);
+    padding:30px;
+    border-radius:25px;
+    backdrop-filter:blur(8px);
+    animation:aparecer 1s ease;
+}
+
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.corazon{
+    position:absolute;
+    color:white;
+    font-size:25px;
+    animation:subir linear forwards;
+}
+
+@keyframes subir{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-100vh);
+        opacity:0;
+    }
+}
+
+@keyframes explosion{
+    0%{
+        transform:scale(0);
+        opacity:1;
+    }
+
+    100%{
+        transform:scale(2);
+        opacity:0;
+    }
+}
+
+footer{
+    position:absolute;
+    bottom:10px;
+    width:100%;
+    font-size:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="contenido">
+
+<h1>Para Ti ❤️</h1>
+
+<p>
+Tengo muchas cosas para decirte...
+</p>
+
+<button onclick="siguienteCarta()">
+Abrir Carta 💌
+</button>
+
+<div class="carta" id="carta">
+    <h2 id="tituloCarta"></h2>
+    <p id="textoCarta"></p>
+</div>
+
+</div>
+
+<footer>
+Hecho con mucho amor ❤️
+</footer>
+
+<iframe id="musica"
+width="0"
+height="0"
+src=""
+frameborder="0"
+allow="autoplay">
+</iframe>
+
+<script>
+
+const cartas = [
+
+{
+titulo:"Carta 1 ❤️",
+texto:"Gracias por llegar a mi vida y hacerla mucho más bonita."
+},
+
+{
+titulo:"Carta 2 💖",
+texto:"Tus mensajes, tus risas y tu forma de ser alegran mis días."
+},
+
+{
+titulo:"Carta 3 🌸",
+texto:"Cada momento contigo se vuelve un recuerdo especial."
+},
+
+{
+titulo:"Carta 4 💌",
+texto:"No importa qué pase, siempre tendrás un lugar importante en mi corazón."
+},
+
+{
+titulo:"Carta 5 ❤️",
+texto:"Eres una persona increíble y me haces muy feliz."
+},
+
+{
+titulo:"Carta 6 ✨",
+texto:"Gracias por cada detalle, por cada palabra y por existir."
+}
+
+];
+
+let indice = 0;
+
+function siguienteCarta(){
+
+    document.getElementById("carta").style.display = "block";
+
+    document.getElementById("tituloCarta").innerHTML =
+    cartas[indice].titulo;
+
+    document.getElementById("textoCarta").innerHTML =
+    cartas[indice].texto;
+
+    document.getElementById("musica").src =
+    "https://www.youtube.com/embed/6hzrDeceEKc?autoplay=1&loop=1&playlist=6hzrDeceEKc";
+
+    indice++;
+
+    if(indice >= cartas.length){
+
+        bombaCorazones();
+
+        indice = 0;
+    }
+}
+
+function crearCorazon(){
+
+    const corazon = document.createElement("div");
+
+    corazon.classList.add("corazon");
+
+    corazon.innerHTML = "❤";
+
+    corazon.style.left = Math.random() * 100 + "vw";
+
+    corazon.style.animationDuration =
+    Math.random() * 3 + 3 + "s";
+
+    document.body.appendChild(corazon);
+
+    setTimeout(()=>{
+        corazon.remove();
+    },6000);
+}
+
+setInterval(crearCorazon,300);
+
+function bombaCorazones(){
+
+    for(let i = 0; i < 120; i++){
+
+        const corazon = document.createElement("div");
+
+        corazon.innerHTML = "❤";
+
+        corazon.style.position = "fixed";
+
+        corazon.style.left =
+        Math.random() * 100 + "vw";
+
+        corazon.style.top =
+        Math.random() * 100 + "vh";
+
+        corazon.style.fontSize =
+        Math.random() * 40 + 20 + "px";
+
+        corazon.style.color = "white";
+
+        corazon.style.zIndex = "999";
+
+        corazon.style.animation =
+        "explosion 2s forwards";
+
+        document.body.appendChild(corazon);
+
+        setTimeout(()=>{
+            corazon.remove();
+        },2000);
+    }
+}
+
+</script>
+
+</body>
+</html>
